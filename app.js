@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const port = 3001;
+const port = process.env.PORT;
 // middlewares
 const notFound = require('./middlewares/notFound');
 const handleErrors = require('./middlewares/handleErrors');

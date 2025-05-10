@@ -4,10 +4,16 @@ const port = 3001;
 // middlewares
 const notFound = require('./middlewares/notFound');
 const handleErrors = require('./middlewares/handleErrors');
+// router
+const routerMovies = require('./routes/routerMovie');
 
+// Homepage
 app.get('/', (req, res) => {
     res.send('Ciao Edoardo');
 });
+
+// Movies
+app.use('/movies', routerMovies);
 
 // ERRORS:
 // 404

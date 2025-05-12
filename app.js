@@ -4,8 +4,13 @@ const port = process.env.PORT;
 // middlewares
 const notFound = require('./middlewares/notFound');
 const handleErrors = require('./middlewares/handleErrors');
+const cors = require('cors');
 // router
 const routerMovies = require('./routes/routerMovie');
+
+app.use(cors({
+    origin: process.env.FE
+}));
 
 // Homepage
 app.get('/', (req, res) => {

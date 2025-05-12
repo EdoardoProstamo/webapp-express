@@ -1,6 +1,7 @@
-# Esercizio: Setup Web App Express
-## La prima app completa!
-### Day-1:
+# Day-1:
+
+## Back-End
+
 - Utilizzando il file in allegato, creiamo un database con MySQL Workbench
 - Creiamo una nuova applicazione Express
 - Colleghiamo l’app al db e verifichiamo che tutto funzioni

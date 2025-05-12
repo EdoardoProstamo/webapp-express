@@ -6,6 +6,6 @@ const controllerMovies = require('../controllers/controllerMovie');
 router.get('/', controllerMovies.index);
 
 // rotta show
-router.get('/', controllerMovies.show);
+router.get('/:id', controllerMovies.show);
 
 module.exports = router;

@@ -18,7 +18,10 @@ function index(req, res) {
             })
         };
 
-        res.json(results);
+        res.json(results.map(result => ({
+            ...result,
+            imagePath: process.env.IMG + result.image
+        })));
 
     });
 
@@ -44,7 +47,10 @@ function show(req, res) {
             });
         };
 
-        const moviesList = res.json(results[0]);
+        const moviesList = {
+            ...results[0],
+            imagePath: process.env.IMG + "movies/" + results.image
+        };
 
         // recensioni in show
         const sql = "SELECT * FROM movies.reviews WHERE movie_id=?;";

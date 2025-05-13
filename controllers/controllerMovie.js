@@ -11,6 +11,7 @@ function index(req, res) {
     ;`;
 
     connection.query(sql, (err, results) => {
+        console.log(results);
 
         if (err) {
             return res.status(500).json({
@@ -20,7 +21,7 @@ function index(req, res) {
 
         res.json(results.map(result => ({
             ...result,
-            imagePath: process.env.IMG + "movies/" + result.image
+            imagePath: process.env.IMG + result.image
         })));
 
     });
@@ -49,7 +50,7 @@ function show(req, res) {
 
         const moviesList = {
             ...results[0],
-            imagePath: process.env.IMG + "movies/" + results.image
+            imagePath: process.env.IMG + results.image
         };
 
         // recensioni in show

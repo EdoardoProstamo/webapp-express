@@ -20,7 +20,7 @@ function index(req, res) {
 
         res.json(results.map(result => ({
             ...result,
-            imagePath: process.env.IMG + result.image
+            imagePath: process.env.IMG + "movies/" + result.image
         })));
 
     });

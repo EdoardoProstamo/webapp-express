@@ -12,6 +12,9 @@ app.use(cors({
     origin: process.env.FE
 }));
 
+// asset statici
+app.use(express.static('public'));
+
 // Homepage
 app.get('/', (req, res) => {
     res.send('Ciao Edoardo');

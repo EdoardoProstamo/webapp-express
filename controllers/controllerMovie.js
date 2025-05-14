@@ -2,14 +2,23 @@ const connection = require('../data/db');
 
 function index(req, res) {
 
-    const sql = `
+    const { ricerca } = req.query;
+
+    // richiesta, con unione delle tabelle che ci servono (tramite JOIN), solo di determinati campi all'interno del DB
+    let sql = `
     SELECT movies.*, AVG(reviews.vote) AS media_voto_recensioni 
     FROM movies.movies 
     LEFT JOIN movies.reviews 
-    ON movie_id = reviews.movie_id 
-    GROUP BY movies.id
-    ;`;
+    ON movie_id = reviews.movie_id `;
 
+    if (ricerca) {
+
+        sql += `WHERE title LIKE "%${ricerca}%" OR director LIKE "%${ricerca}%" OR abstract LIKE "%${ricerca}%" OR release_year LIKE "%${ricerca}%" OR genre LIKE "%${ricerca}%"`
+    }
+
+    sql += 'GROUP BY movies.id'
+
+    // connessione al DB per ricevere le informazioni dei film
     connection.query(sql, (err, results) => {
 
 
@@ -35,7 +44,6 @@ function show(req, res) {
     const { id } = req.params;
 
     connection.query(sql, [id], (err, results) => {
-        console.log(results);
 
         if (err) {
             return res.status(500).json({

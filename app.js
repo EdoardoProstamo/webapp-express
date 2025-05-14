@@ -20,7 +20,7 @@ app.get('/', (req, res) => {
     res.send('Ciao Edoardo');
 });
 
-// Movies
+// single movie page
 app.use('/movies', routerMovies);
 
 // ERRORS:

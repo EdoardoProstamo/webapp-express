@@ -11,7 +11,7 @@ function index(req, res) {
     ;`;
 
     connection.query(sql, (err, results) => {
-        console.log(results);
+
 
         if (err) {
             return res.status(500).json({
@@ -29,12 +29,13 @@ function index(req, res) {
 };
 
 function show(req, res) {
-
+    // dettaglio single movie in show
     const sql = `SELECT * FROM movies.movies WHERE id = ?;`;
 
     const { id } = req.params;
 
     connection.query(sql, [id], (err, results) => {
+        console.log(results);
 
         if (err) {
             return res.status(500).json({
@@ -50,7 +51,7 @@ function show(req, res) {
 
         const moviesList = {
             ...results[0],
-            imagePath: process.env.IMG + results.image
+            imagePath: process.env.IMG + results[0].image
         };
 
         // recensioni in show

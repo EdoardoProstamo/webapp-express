@@ -1,6 +1,6 @@
 # Day-1:
 
-## Back-End
+## BACKEND
 
 - Utilizzando il file in allegato, creiamo un database con MySQL Workbench
 - Creiamo una nuova applicazione Express
@@ -16,3 +16,8 @@
 - Inserire un middleware per la gestione errori
 > Bonus Bonus;
 - Restituire nella INDEX anche la media delle recensioni dei vostri film;
+
+
+# DAY-4 (BACKEND):
+- Predisponiamo un’API per salvare nel database una nuova recensione legata ad un film
+- Testiamola su postman e verifichiamo che nel DB venga effettivamente inserita una nuova recensione

@@ -6,7 +6,7 @@ function index(req, res) {
 
     // richiesta, con unione delle tabelle che ci servono (tramite JOIN), solo di determinati campi all'interno del DB
     let sql = `
-    SELECT movies.*, AVG(reviews.vote) AS media_voto_recensioni 
+    SELECT movies.*, ROUND(AVG(reviews.vote),1) AS media_voto_recensioni 
     FROM movies.movies 
     LEFT JOIN movies.reviews 
     ON movie_id = reviews.movie_id `;

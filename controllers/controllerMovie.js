@@ -39,7 +39,12 @@ function index(req, res) {
 
 function show(req, res) {
     // dettaglio single movie in show
-    const sql = `SELECT * FROM movies.movies WHERE id = ?;`;
+    const sql = `
+    SELECT movies.*, ROUND(AVG(reviews.vote),1) AS media_voto_recensioni 
+    FROM movies.movies 
+    LEFT JOIN movies.reviews 
+    ON movie_id = reviews.movie_id 
+    WHERE movies.id=?`;
 
     const { id } = req.params;
 

@@ -90,4 +90,36 @@ function show(req, res) {
 
 };
 
-module.exports = { index, show };
+function store(req, res) {
+
+    // id del film del quale viene creata la nuova recensione
+    const { id } = req.params;
+
+    // valori della nuova recensione che voglio siano utilizzati
+    const { name, vote, text } = req.body;
+
+    // comando utilizzato nel database (richiesta inserimento nuovi elementi, in questo caso)
+    const sql = `INSERT INTO reviews (movie_id, name, vote, text) VALUES (?, ?, ?, ?);`
+
+    // connessione: eventuali errori e risposta alla richiesta
+    connection.query(sql, [id, name, vote, text], (err, results) => {
+        if (err) {
+            return res.status(500).json({
+                errorMessage: "Errore di connessione al Database."
+            });
+        };
+
+        if (err) {
+            return res.status(404).json({
+                errorMessage: "Elemento non trovato. Error 404!"
+            });
+        };
+
+
+    });
+
+    res.send(`Aggiunta nuova recensione per il film ${id}`)
+
+};
+
+module.exports = { index, show, store };

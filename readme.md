@@ -19,5 +19,16 @@
 
 
 # DAY-4 (BACKEND):
-- Predisponiamo un’API per salvare nel database una nuova recensione legata ad un film
-- Testiamola su postman e verifichiamo che nel DB venga effettivamente inserita una nuova recensione
+- Predisporre un’API per salvare nel database una nuova recensione legata ad un film
+- Testare su postman e verificare che nel DB venga effettivamente inserita una nuova recensione
+
+
+# DAY-5 (BACKEND)
+- Inserire un loader.
+    - Creare un componente loader
+    - Questo componente deve poter apparire su qualunque pagina dell'app.
+- Creare e sfruttare un Context per dare la possibilità ad ogni componente di attivare o disattivare il loader sulla propria pagina
+> BONUS:
+- Personalizzare l’aspetto dell'app col CSS
+> BONUS BONUS:
+- Validare i campi dei form!

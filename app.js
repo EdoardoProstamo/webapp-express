@@ -12,6 +12,9 @@ app.use(cors({
     origin: process.env.FE
 }));
 
+// middleware per il parsing del body (serve a restituire il contenuto in formato json)
+app.use(express.json());
+
 // asset statici
 app.use(express.static('public'));
 

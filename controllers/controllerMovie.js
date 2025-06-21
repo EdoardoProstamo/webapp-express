@@ -118,7 +118,12 @@ function store(req, res) {
 
     });
 
-    res.send(`Aggiunta nuova recensione per il film ${id}`)
+    res.json({
+        id,
+        name,
+        vote,
+        text
+    });
 
 };
 

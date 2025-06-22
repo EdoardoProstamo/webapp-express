@@ -1,12 +1,13 @@
 const connection = require('../data/db');
 
+// lista film
 function index(req, res) {
 
     const { ricerca } = req.query;
 
     // richiesta, con unione delle tabelle che ci servono (tramite JOIN), solo di determinati campi all'interno del DB
     let sql = `
-    SELECT movies.*, ROUND(AVG(reviews.vote), 0) AS media_voto_recensioni 
+    SELECT movies.*, ROUND(AVG(reviews.vote), 2) AS media_voto_recensioni 
     FROM movies.movies 
     LEFT JOIN movies.reviews 
     ON movie_id = reviews.movie_id `;
@@ -37,10 +38,11 @@ function index(req, res) {
 
 };
 
+// singolo film
 function show(req, res) {
     // dettaglio single movie in show
     const sql = `
-    SELECT movies.*, ROUND(AVG(reviews.vote), 0) AS media_voto_recensioni 
+    SELECT movies.*, ROUND(AVG(reviews.vote), 2) AS media_voto_recensioni 
     FROM movies.movies 
     LEFT JOIN movies.reviews 
     ON movie_id = reviews.movie_id 
@@ -90,6 +92,7 @@ function show(req, res) {
 
 };
 
+// recensioni
 function store(req, res) {
 
     // id del film del quale viene creata la nuova recensione
@@ -127,4 +130,32 @@ function store(req, res) {
 
 };
 
-module.exports = { index, show, store };
+// nuovo film
+function storeMovie(req, res) {
+
+    // valori del nuovo film che voglio siano utilizzati
+    const { title, director, genre, release_year, abstract } = req.body;
+
+    // comando utilizzato nel database (richiesta inserimento nuovi elementi, in questo caso)
+    const sql = `INSERT INTO movies.movies (title, director, genre, release_year, abstract) VALUES (?, ?, ?, ?, ?);`
+
+    // connessione: eventuali errori e risposta alla richiesta
+    connection.query(sql, [title, director, genre, release_year, abstract], (err, results) => {
+        if (err) {
+            return res.status(500).json({
+                errorMessage: "Errore di connessione al Database."
+            });
+        };
+
+        if (err) {
+            return res.status(404).json({
+                errorMessage: "Elemento non trovato. Error 404!"
+            });
+        };
+
+        res.json({ message: 'Nuovo film aggiunto' });
+    });
+
+};
+
+module.exports = { index, show, store, storeMovie };

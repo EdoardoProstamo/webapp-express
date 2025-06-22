@@ -8,6 +8,9 @@ router.get('/', controllerMovies.index);
 // rotta show
 router.get('/:id', controllerMovies.show);
 
+// rotta store (aggiunta nuovo film)
+router.post('/', controllerMovies.storeMovie);
+
 // rotta store (aggiunta nuova recensione)
 router.post('/:id/reviews', controllerMovies.store);
 

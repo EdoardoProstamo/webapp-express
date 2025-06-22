@@ -4,11 +4,15 @@ const multer = require('multer');
 // questa parte si può copiare ed incollare dalla pagina del pacchetto npm multer
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, '/public/img') //questo è il percorso dove l'utente dovrà salvare i files(in questo caso, le immagini)
+        cb(null, './public/img') //questo è il percorso dove l'utente dovrà salvare i files(in questo caso, le immagini)
     },
     filename: function (req, file, cb) {
-        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
-        cb(null, file.fieldname + '-' + uniqueSuffix)
+        // const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
+        // cb(null, file.fieldname + '-' + uniqueSuffix)
+
+
+        const uniqueName = `${Date.now()}-${Math.round(Math.random() * 1E9)}-${file.originalname}`
+        cb(null, uniqueName)
     }
 })
 

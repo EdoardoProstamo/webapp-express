@@ -136,11 +136,13 @@ function storeMovie(req, res) {
     // valori del nuovo film che voglio siano utilizzati
     const { title, director, genre, release_year, abstract } = req.body;
 
+    const imageName = req.file.filename;
+
     // comando utilizzato nel database (richiesta inserimento nuovi elementi, in questo caso)
-    const sql = `INSERT INTO movies.movies (title, director, genre, release_year, abstract) VALUES (?, ?, ?, ?, ?);`
+    const sql = `INSERT INTO movies.movies (title, director, genre, release_year, abstract, image) VALUES (?, ?, ?, ?, ?, ?);`
 
     // connessione: eventuali errori e risposta alla richiesta
-    connection.query(sql, [title, director, genre, release_year, abstract], (err, results) => {
+    connection.query(sql, [title, director, genre, release_year, abstract, imageName], (err, results) => {
         if (err) {
             return res.status(500).json({
                 errorMessage: "Errore di connessione al Database."

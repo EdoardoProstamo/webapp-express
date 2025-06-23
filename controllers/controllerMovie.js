@@ -1,4 +1,5 @@
 const connection = require('../data/db');
+const slugify = require('slugify');
 
 // lista film
 function index(req, res) {
@@ -139,10 +140,13 @@ function storeMovie(req, res) {
     const imageName = req.file.filename;
 
     // comando utilizzato nel database (richiesta inserimento nuovi elementi, in questo caso)
-    const sql = `INSERT INTO movies.movies (title, director, genre, release_year, abstract, image) VALUES (?, ?, ?, ?, ?, ?);`
+    const sql = `INSERT INTO movies.movies (title, director, genre, release_year, abstract, image, slug) VALUES (?, ?, ?, ?, ?, ?, ?);`
+
+    // slug
+    const slug = slugify(title);
 
     // connessione: eventuali errori e risposta alla richiesta
-    connection.query(sql, [title, director, genre, release_year, abstract, imageName], (err, results) => {
+    connection.query(sql, [title, director, genre, release_year, abstract, imageName, slug], (err, results) => {
         if (err) {
             return res.status(500).json({
                 errorMessage: "Errore di connessione al Database."

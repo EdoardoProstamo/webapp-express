@@ -1,6 +1,8 @@
 // multer è un middleware che serve a gestire un invio di dati ad un server come multipart/form-data; viene utilizzato principalmente per l'upload di files.
 const multer = require('multer');
 
+const slugify = require('slugify');
+
 // questa parte si può copiare ed incollare dalla pagina del pacchetto npm multer
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -10,8 +12,10 @@ const storage = multer.diskStorage({
         // const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
         // cb(null, file.fieldname + '-' + uniqueSuffix)
 
+        // slug
+        const slugifyName = slugify(file.originalname);
 
-        const uniqueName = `${Date.now()}-${Math.round(Math.random() * 1E9)}-${file.originalname}`
+        const uniqueName = `${Date.now()}-${Math.round(Math.random() * 1E9)}-${slugifyName}`
         cb(null, uniqueName)
     }
 })

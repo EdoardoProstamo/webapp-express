@@ -47,11 +47,11 @@ function show(req, res) {
     FROM movies.movies 
     LEFT JOIN movies.reviews 
     ON movie_id = reviews.movie_id 
-    WHERE movies.id=?`;
+    WHERE movies.slug=?`;
 
-    const { id } = req.params;
+    const { slug } = req.params;
 
-    connection.query(sql, [id], (err, results) => {
+    connection.query(sql, [slug], (err, results) => {
 
         if (err) {
             return res.status(500).json({
@@ -65,6 +65,8 @@ function show(req, res) {
             });
         };
 
+        const risultatoCorrente = results[0];
+
         const moviesList = {
             ...results[0],
             imagePath: process.env.IMG + results[0].image
@@ -73,7 +75,7 @@ function show(req, res) {
         // recensioni in show
         const sql = "SELECT * FROM movies.reviews WHERE movie_id=?;";
 
-        connection.query(sql, [id], (err, results) => {
+        connection.query(sql, [risultatoCorrente.id], (err, results) => {
 
             if (err) {
                 return res.status(500).json({

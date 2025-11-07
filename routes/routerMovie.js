@@ -13,6 +13,6 @@ router.get('/:slug', controllerMovies.show);
 router.post('/', upload.single('image'), controllerMovies.storeMovie);
 
 // rotta store (aggiunta nuova recensione)
-router.post('/:id/reviews', controllerMovies.store);
+router.post('/slug/:slug/reviews', controllerMovies.store);
 
 module.exports = router;

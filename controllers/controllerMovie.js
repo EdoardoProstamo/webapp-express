@@ -99,38 +99,34 @@ function show(req, res) {
 function store(req, res) {
 
     // id del film del quale viene creata la nuova recensione
-    const { id } = req.params;
+    const { slug } = req.params;
 
     // valori della nuova recensione che voglio siano utilizzati
     const { name, vote, text } = req.body;
 
-    // comando utilizzato nel database (richiesta inserimento nuovi elementi, in questo caso)
-    const sql = `INSERT INTO reviews (movie_id, name, vote, text) VALUES (?, ?, ?, ?);`
+    const sqlMovie = "SELECT id FROM movies.movies WHERE slug = ?";
 
-    // connessione: eventuali errori e risposta alla richiesta
-    connection.query(sql, [id, name, vote, text], (err, results) => {
-        if (err) {
-            return res.status(500).json({
-                errorMessage: "Errore di connessione al Database."
+
+    connection.query(sqlMovie, [slug], (err, results) => {
+        if (err) return res.status(500).json({ errorMessage: "Errore di connessione al Database." });
+        if (!results.length) return res.status(404).json({ errorMessage: "Film non trovato" });
+
+        const movieId = results[0].id;
+
+        // inserimento recensione
+        const sqlReview = "INSERT INTO reviews (movie_id, name, vote, text) VALUES (?, ?, ?, ?)";
+        connection.query(sqlReview, [movieId, name, vote, text], (err, results) => {
+            if (err) return res.status(500).json({ errorMessage: "Errore di connessione al Database." });
+
+            res.json({
+                message: "Recensione aggiunta",
+                movieId,
+                name,
+                vote,
+                text
             });
-        };
-
-        if (err) {
-            return res.status(404).json({
-                errorMessage: "Elemento non trovato. Error 404!"
-            });
-        };
-
-
+        });
     });
-
-    res.json({
-        id,
-        name,
-        vote,
-        text
-    });
-
 };
 
 // nuovo film
